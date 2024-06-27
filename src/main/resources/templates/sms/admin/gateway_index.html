@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div xmlns:th="http://www.thymeleaf.org" layout:decorate="admin-layout">
+    <div layout:fragment = "main_content">
+
+        <section>
+            <div class="container-fluid">
+                <div class="row mb-2 pb-3 pt-3">
+                    <div class="col-sm-6">
+                        <h3>SMS</h3>
+                    </div>
+                    <div class="col-sm-6  justify-content-md-end gap-2 d-md-flex">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">SMS</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Gateway</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="row">
+            <div class="col-sm-12">
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="row">  
+                            <div class="col-sm-5 font-weight-bold ">
+                                <h4> <i class="fas fa-list"></i> Manage Gateway</h4>
+                                <!--                                <span class="" th:text="${customerlist.size()}"></span> -->
+                            </div>
+                            <div class="col-sm-7  justify-content-md-end gap-2 d-md-flex"> 
+
+                                <a  th:href="@{/gateway/add}" type="submit" class="btn btn-success btn-sm ">Add</a>
+                                <a class="btn btn-danger btn-sm" th:href="@{/admin/}"> Close</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span th:if="${ not #strings.isEmpty(message)}">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span th:text="${message}" > </span>
+                            </div>
+                        </span>
+                        <div class="row">
+                            <form class="row gy-2 gx-4  mb-3 align-items-center">
+
+                                <div class="col-auto">
+                                    <label class="visually-hidden" for="autoSizingInput">Name</label>
+                                    <input type="text" class="form-control" id="autoSizingInput" placeholder="Search">
+                                </div>
+
+                                <!--                                <div class="col-auto">
+                                                                    <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                                                                    <div class="input-group">
+                                                                  
+                                                                        <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+                                                                    </div>
+                                                                </div>-->
+
+                                <!--                                <div class="col-auto">
+                                                                    <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+                                                                    <select class="form-select" id="autoSizingSelect">
+                                                                        <option selected>Choose...</option>
+                                                                        <option value="1">One</option>
+                                                                        <option value="2">Two</option>
+                                                                        <option value="3">Three</option>
+                                                                    </select>
+                                                                </div>-->
+
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                </div>
+                            </form>
+
+                            <div class="table-responsive">
+                                <table id="basictable" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px"> Sl No</th>
+                                            <th>Gateway Name</th>
+                                            <th>Created By</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="lists,status:${list}">
+                                            <td th:text="${status.count}">2.</td>
+                                            <td th:text="${lists.name}">Chakma</td>
+
+                                            <td th:text="${lists.createdBy}">Chakma</td> 
+                                            <td>
+                                                <a type="button" class="btn  btn-success btn-xs bg-maroon" th:href="@{/gateway/edit/{id} (id=${lists.id})}" > Edit </a>
+                                            </td>
+                                            <td>
+                                                <a type="button" class="btn  btn-danger btn-xs bg-maroon" th:href="@{/gateway/delete/{id} (id=${lists.id})}"  onclick="return confirm('Are you sure you want to delete this item?');"> Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!--  Card body end-->
+                    </div><!--  Card  end-->
+                </div><!--  Main Content  end-->
+            </div>   <!--  Layout end-->
+        </section><!--  Main Content  end-->
+
+
+
+    </div>   <!--  Layout end-->
+</div>

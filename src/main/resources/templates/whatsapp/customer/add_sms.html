@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div xmlns:th="http://www.thymeleaf.org" layout:decorate="front-layout-inner-customar-page">
+    <div layout:fragment = "main_content">
+        <section>
+            <div class="container-fluid">
+                <div class="row mb-2 pb-3 pt-3">
+                    <div class="col-sm-6">
+                        <h3>WhatsApp</h3>
+                    </div>
+                    <div class="col-sm-6  justify-content-md-end gap-2 d-md-flex">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">WhatsApp </a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add  WhatsApp Message</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div class="row">  
+                            <div class="col-sm-5 font-weight-bold ">
+                                <h4> <i class="fas fa-list"></i> Create WhatsApp Message </h4>
+                                <!--                                <span class="" th:text="${customerlist.size()}"></span> -->
+                            </div>
+                            <div class="col-sm-7  justify-content-md-end gap-2 d-md-flex"> 
+
+
+                                <a class="btn btn-danger btn-sm" th:href="@{/customersendwhatsappmessage/index}"> Close</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="card bg-light">
+
+
+                                <form class=" mt-3" th:action="@{/customersendwhatsappmessage/save}" th:object="${sendwhatsappMessage}" enctype="multipart/form-data" method="post">
+
+                                    <span th:if="${ not #strings.isEmpty(message)}">
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <span th:text="${message}" > </span>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </span>
+                                    <div class="form-group mb-3">
+                                        <label for="inputPassword2" class=""> All fields marked with <span class="text-danger"> *</span> are required and must be filled.  </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control"  th:field="*{id}" />
+                                        <input type="hidden" class="form-control"  th:field="*{customer}" />
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="inputPassword2" class="">Sender<span class="text-danger"> *</span></label>
+                                        <input type="text" class="form-control" th:field="*{sender}"  id="inputPassword2" placeholder="Sender">
+
+                                        <span  class="help-block has-error text-danger" th:if="${#fields.hasErrors('sender')}" th:errors="*{sender}">Book Name</span>
+                                    </div>
+
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="exampleInputEmail1">Contact Group <span class="text-danger"> *</span></label>
+                                        <select id="inputState" class="form-control col-sm-3"  >
+                                            <option value=" "> Select one</option>              
+                                            <option th:each =" contactGroupLists : ${contactGroupList}"
+                                                    th:value="${contactGroupLists.id} " 
+                                                    th:text="${contactGroupLists.name}"> Select one</option>
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group mx-sm-3 col-6 col-md-6 mb-2 ">
+                                        <label for="inputPassword2" class="">Recipient<span class="text-danger"> *</span></label>
+                                        <textarea  class="form-control" th:field="*{recipient}"  id="inputPassword2" placeholder="Recipient"> </textarea>
+
+                                        <span  class="help-block has-error text-danger" th:if="${#fields.hasErrors('recipient')}" th:errors="*{recipient}">Book Name</span>
+                                    </div>
+
+
+
+
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="exampleInputEmail1">SMS Type <span class="text-danger"> *</span></label>
+                                        <select id="inputState" class="form-control col-sm-3"  th:field="*{whatsappType}">
+                                            <option value=" "> Select one</option>              
+                                            <option th:each =" smsTypes : ${smsType}"
+                                                    th:value="${smsTypes} " 
+                                                    th:text="${smsTypes}"> Select one</option>
+                                        </select>
+                                        <span  class="help-block has-error text-danger" th:if="${#fields.hasErrors('whatsappType')}" th:errors="*{whatsappType}">Book Name</span>
+                                    </div>
+
+
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="exampleInputEmail1">Template List <span class="text-danger"> *</span></label>
+                                        <select id="inputState" class="form-control col-sm-3" >
+                                            <option value=" "> Select one</option>              
+                                            <option th:each =" templateLists : ${templateList}"
+                                                    th:value="${templateLists.id} " 
+                                                    th:text="${templateLists.temptitle}"> Select one</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="inputPassword2" class="">Message<span class="text-danger"> *</span></label>
+                                        <textarea type="text" class="form-control" th:field="*{message}"  id="inputPassword2" placeholder="Contacts No"></textarea>
+
+                                        <span  class="help-block has-error text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Book Name</span>
+                                    </div>
+
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="inputPassword2" class="">Schedule Date<span class="text-danger"> *</span></label>
+                                        <input type="text" class="form-control" th:field="*{scheduleDate}"  id="inputPassword2" placeholder="Schedule Date">
+
+                                        <span  class="help-block has-error text-danger" th:if="${#fields.hasErrors('scheduleDate')}" th:errors="*{scheduleDate}">Book Name</span>
+                                    </div>
+
+
+                                    <div class="d-grid gap-2 col-3 mx-auto mb-3 mt-3">
+                                        <button type="submit" class="btn btn-success mb-2 btn-sm">Submit</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div><!--  Card body end-->
+
+
+                </div><!--  Card  end-->
+
+
+            </div><!--  Main Content  end-->
+        </div>   <!--  Layout end-->
+
+    </div><!--  Main Content  end-->
+</div>   <!--  Layout end-->
